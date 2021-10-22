@@ -1,16 +1,29 @@
 <?php
 
-class Card
-{
+class Card {
     private string $suit;
     private string $symbol;
     private int $value;
 
-    public function __construct(string $suit, string $symbol,int $value)
+    /**
+     * @param string $suit
+     * @param string $symbol
+     * @param int $value
+     */
+    public function __construct(string $suit, 
+        string $symbol, int $value)
     {
         $this->suit = $suit;
         $this->symbol = $symbol;
         $this->value = $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSuit(): string
+    {
+        return $this->suit;
     }
 
     /**
@@ -24,9 +37,9 @@ class Card
     /**
      * @return string
      */
-    public function getSuit(): string
+    public function getSymbol(): string
     {
-        return $this->suit;
+        return $this->symbol;
     }
 
     /**
@@ -38,11 +51,11 @@ class Card
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getSymbol(): string
+    public function getValue(): int
     {
-        return $this->symbol;
+        return $this->value;
     }
 
     /**
@@ -51,14 +64,6 @@ class Card
     public function setValue(int $value): void
     {
         $this->value = $value;
-    }
-
-    /**
-     * @return int
-     */
-    public function getValue(): int
-    {
-        return $this->value;
     }
 
 
