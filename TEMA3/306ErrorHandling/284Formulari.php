@@ -48,42 +48,41 @@ if (isPost()) {
     $isPost = true;
 
     try {
-        if (validate_string($_POST["firstname"], 1, 25)) {
-            $firstname = clean($_POST["firstname"]);
+        if (validate_firstname($_POST["firstname"], 1, 25)) {
+            $firstname = clear($_POST["firstname"]);
         }
-    } catch (Error $e) {
-        $errors[]="Firstname error: ".$e;
+    } catch (Exception $e) {
+        $errors[]=$e->getMessage();
     }
+
 
     try {
-        if (validate_string($_POST["lastname"], 1, 50)) {
-            $title = clean($_POST["lastname"]);
+        if (validate_lastname($_POST["lastname"], 1, 50)) {
+            $lastname= clear($_POST["lastname"]);
         }
-    } catch (Error $e) {
-        $errors[]="Lastname error: ".$e;
+
+    } catch (Exception $e) {
+        $errors[] = $e->getMessage();
     }
 
 
-    if (validate_phone()) {
-        $errors[] = "Telèfon requerit";
-    } else {
-        if (preg_match("/^\d{9}$/", $_POST["phone"])) {
+    try {
+        if (validate_phone($_POST["phone"])) {
             $phone = $_POST["phone"];
-        } else {
-            $errors[] = "Tlfn no valido, deben ser exactamente 9 digitos";
         }
+    } catch (Exception $e) {
+        $errors[] = $e->getMessage();
     }
 
-    if (validate_email()) {
-        $errors[] = "Email requerit";
-    } else {
-        if (filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL)) {
+
+    try {
+        if (validate_email($_POST["email"])) {
             $email = $_POST["email"];
-        } else {
-            $errors[] = "Email erroni";
         }
-
+    } catch (Exception $e) {
+        $errors[] = $e->getMessage();
     }
+
 
     //GENERE
     if(empty($_POST["genere"])){

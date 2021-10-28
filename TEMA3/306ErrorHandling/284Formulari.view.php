@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<form action="272Formulari.php"  enctype="multipart/form-data" method="post">
+<form action="284Formulari.php"  enctype="multipart/form-data" method="post">
         <pre>
             <?php
                 if (!empty($errors)){

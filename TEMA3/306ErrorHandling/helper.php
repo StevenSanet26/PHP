@@ -10,33 +10,59 @@ function isPost(){
 
 }
 
-function validate_string(string $string, int $minLength = 1, int $maxLength = 50000){
+/**
+ * @throws TooShortValidationException
+ * @throws RequiredValidationException
+ * @throws TooLongValidationException
+ */
+function validate_firstname(string $string, int $minLength = 1, int $maxLength = 50000): bool{
     if (empty($string)) {
         throw new RequiredValidationException("Required firstname");
     }
-    if ($string<$minLength){
+    if (strlen($string)<$minLength){
         throw new TooShortValidationException("Firstname is too short");
     }
-    if ($string>$maxLength){
+    if (strlen($string)>$maxLength){
         throw new TooLongValidationException("Firstname is too long");
     }
+    return true;
+}
+
+function validate_lastname(string $string, int $minLength = 1, int $maxLength = 50000): bool{
+    if (empty($string)) {
+        throw new RequiredValidationException("Required lastname");
+    }
+    if (strlen($string)<$minLength){
+        throw new TooShortValidationException("Lastname is too short");
+    }
+    if (strlen($string)>$maxLength){
+        throw new TooLongValidationException("Lastname is too long");
+    }
+    return true;
 }
 
 
-
-
-function validate_phone():bool{
-    if(empty($_POST["phone"])){
-        return true;
+/**
+ * @throws InvalidPhoneValidationException
+ * @throws RequiredValidationException
+ */
+function validate_phone(string $phone):bool{
+    if(empty($phone)){
+        throw new RequiredValidationException("Required phone");
+    }if (!preg_match("/^\d{9}$/",$phone)) {
+        throw new InvalidPhoneValidationException("Phone error");
     }
-    return false;
+    return true;
 }
 
-function validate_email():bool{
-    if(empty($_POST["email"])){
-        return true;
+function validate_email(string $email):bool{
+    if(empty($email)){
+        throw new RequiredValidationException("Required email");
     }
-    return false;
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        throw new InvalidEmailValidationException("Email error");
+    }
+    return true;
 }
 
 
