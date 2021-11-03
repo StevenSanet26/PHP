@@ -8,11 +8,12 @@
     <title>Document</title>
 </head>
 <body>
-<h1>Movies</h1>
-<ul>
-    <?php foreach ($movies as $movie): ?>
-        <li><a href="movie.php?id=<?=$movie->getId()?>"><?=$movie->getTitle()?></a> </li>
-    <? endforeach;?>
-</ul>
+    <h1>Movies</h1>
+    <ul>
+        <?php foreach ($movies as $movie): ?>
+            <li><a href="movie.php?id=<?=$movie->getId()?>"><?=$movie->getTitle()?></a> </li>
+        <?php endforeach;?>
+    </ul>
+    <p><a href="movies-create.php">New movie</a></p>
 </body>
 </html>

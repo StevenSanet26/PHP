@@ -12,7 +12,7 @@
 <ul>
     <?php foreach ($movies as $movie): ?>
         <li><a href="movie.php?id=<?=$movie->getId()?>"><?=$movie->getTitle()?></a> </li>
-    <? endforeach;?>
+    <?php endforeach;?>
 </ul>
 </body>
 </html>
