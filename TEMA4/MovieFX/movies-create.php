@@ -88,7 +88,7 @@ if (isPost()) {
 }
 
 if (isPost() && empty($errors)){
-    $pdo = new PDO("mysql:host=myslq-server;dbname=movieFX;charset=utf8", "dbuser", "1234");
+    $pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8", "dbuser", "1234");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, 'SET NAMES utf8');
 
@@ -104,7 +104,7 @@ if (isPost() && empty($errors)){
         $errors[] = "No s'ha pogut inserir el registre";
     else
         //lastInsertId ens torna la clau primària (id) del últim registre inserit en la base de dades.
-        $message = "S'ha inserit el registre amb el ID ({$pdo->lastInsertId("movie")})";
+        $message = "S'ha actualitzat el registre amb el ID ({$pdo->lastInsertId("movie")})";
 }
 
 require "views/movies-create.view.php";

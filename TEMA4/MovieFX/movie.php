@@ -14,7 +14,7 @@ if (!empty($idTemp)) {
 }
 
 //Connexió a la base de dades.
-$pdo = new PDO("mysql:host=myslq-server;dbname=movieFX;charset=utf8","dbuser","1234");
+$pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8","dbuser","1234");
 //Prequè generi excepcions a l'hora de reportar errors.
 $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
@@ -34,7 +34,7 @@ if (!empty($movieAr)) {
     $movie->setId((int)$movieAr["id"]);
     $movie->setTitle($movieAr["title"]);
     $movie->setPoster($movieAr["poster"]);
-    $movie->setReleaseDate($movieAr["release-date"]);
+    $movie->setReleaseDate($movieAr["release_date"]);
     $movie->setOverview($movieAr["overview"]);
     $movie->setRating((float)$movieAr["rating"]);
 }

@@ -23,6 +23,20 @@ function validate_string(string $string, int $minLength = 1, int $maxLength = 50
     return true;
 }
 
+function validate_date(string $date): bool {
+
+    if (DateTime::createFromFormat("Y-m-d", $date)===false)
+        return false;
+
+    $errors = DateTime::getLastErrors();
+
+    //var_dump($errors);
+    if (count($errors["warnings"])>0 || count($errors["errors"])>0)
+        return false;
+
+    return true;
+}
+
 function getFileExtension(string $filename): string
 {
     $mime = "";

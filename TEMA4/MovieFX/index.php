@@ -4,7 +4,7 @@ require "src/Movie.php";
 //require "movies.inc.php";
 
 //Connexió a la base de dades.
-$pdo = new PDO("mysql:host=myslq-server;dbname=movieFX;charset=utf8","dbuser","1234");
+$pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8","dbuser","1234");
 //Prequè generi excepcions a l'hora de reportar errors.
 $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
