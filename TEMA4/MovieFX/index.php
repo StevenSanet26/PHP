@@ -3,6 +3,13 @@ declare(strict_types=1);
 require "src/Movie.php";
 //require "movies.inc.php";
 
+if (isset($_COOKIE["last_visit_date"])){
+    $cockies = setcookie("last_visit_date", (string)time(), time() + 604800);
+    echo "Welcome, the last conection was ".date("d/m/Y h:m:s",(int) $cockies);
+}else{
+    echo "Welcome";
+}
+
 //Connexió a la base de dades.
 $pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8","dbuser","1234");
 //Prequè generi excepcions a l'hora de reportar errors.
