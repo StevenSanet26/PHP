@@ -27,6 +27,7 @@
 
     <div>
         <label for="release_date">Release date (YYYY-mm-dd)</label>
+
         <input type="text" id="release_date" name="release_date" value="<?= $data["release_date"] ?>">
     </div>
 
@@ -40,8 +41,7 @@
     </div>
 
     <div>
-        <p>Poster: <?=$data["poster"]?></p>
-        <!--<input type="hidden" name="poster" value="<?=$data["poster"]?>"/>-->
+        <input type="hidden" name="poster" value="<?=$data["poster"]?>"/>
         <input type="file" name="poster" />
 
     </div>

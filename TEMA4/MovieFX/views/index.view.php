@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="description" content="PHP, PHPStorm">
+    <meta name="author" content="Steven">
+    <title>Index view</title>
 </head>
 <body>
-    <h1>Movies</h1>
+    <h1>Movies of Steven</h1>
     <ul>
         <?php foreach ($movies as $movie): ?>
             <li><a href="movie.php?id=<?=$movie->getId()?>"><?=$movie->getTitle()?></a>

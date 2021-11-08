@@ -5,7 +5,7 @@ require 'Exceptions/FileUploadException.php';
 require_once 'Exceptions/NoUploadedFileException.php';
 require_once 'src/Movie.php';
 
-// En el cas de l'edició els valors inicials haurien de ser els de l'objecte a actualitzar, així
+// En el cas de esborrar els valors inicials haurien de ser els de l'objecte a actualitzar, així
 // que caldria inicialitzar l'array $data  tant en l'opció de post com en la get
 
 if (isPost())

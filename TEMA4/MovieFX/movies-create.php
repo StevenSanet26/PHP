@@ -4,6 +4,8 @@ declare(strict_types=1);
 require "helpers.php";
 require "Exceptions/FileUploadException.php";
 require "Exceptions/NoUploadedFileException.php";
+require "Exceptions/TooBigFileException.php";
+require "Exceptions/InvalidTypeFileException.php";
 require "src/Movie.php";
 
 const MAX_SIZE = 1034 * 1000;
@@ -64,17 +66,19 @@ if (isPost()) {
             $extension = explode("/", getFileExtension($tempFilename))[1];
             $newFilename = md5((string)rand()) . "." . $extension;
             $newFullFilename = Movie::POSTER_PATH . "/" . $newFilename;
+            //Es guarda el tamany
             $fileSize = $_FILES["poster"]["size"];
 
+            //Comprova si la extensio es troba en l'array[jpg]
             if (!in_array($mimeType, $validTypes))
                 throw new InvalidTypeFileException("La foto no és jpg");
-
+            //Comprova si la extensio es jpeg
             if ($extension != 'jpeg')
                 throw new InvalidTypeFileException("La foto no és jpg");
-
+            //Comprovar si la imatge supera el maxim de bytes permitit
             if ($fileSize > MAX_SIZE)
                 throw new TooBigFileException("La foto té $fileSize bytes");
-
+            //Comprova si la imatge te permisos
             if (!move_uploaded_file($tempFilename, $newFullFilename))
                 throw new FileUploadException("No s'ha pogut moure la foto");
 
