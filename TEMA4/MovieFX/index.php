@@ -5,7 +5,7 @@ require "src/Movie.php";
 
 if (isset($_COOKIE["last_visit_date"])){
     $cockies = setcookie("last_visit_date", (string)time(), time() + 604800);
-    echo "Welcome, the last conection was ".date("d/m/Y h:m:s",(int) $cockies);
+    echo "Welcome, the last conection was ".date("d/m/Y h:i:s",(int) $cockies);
 }else{
     echo "Welcome";
 }
