@@ -3,11 +3,20 @@ declare(strict_types=1);
 require "src/Movie.php";
 //require "movies.inc.php";
 
-if (isset($_COOKIE["last_visit_date"])){
-    $cockies = setcookie("last_visit_date", (string)time(), time() + 604800);
-    echo "Welcome, the last conection was ".date("d/m/Y h:m:s",(int) $cockies);
+//Guardar el temps en les cookies
+setcookie("last_visit_date", (string)time(), time() + 604800);
+if (isset($_COOKIE["last_visit_date"])) {
+
+    $cockies = $_COOKIE["last_visit_date"];
+    if (filter_var($cockies, FILTER_VALIDATE_INT)) {
+
+
+    echo "<h2>Welcome, the last conection was " . date("d/m/Y H:i:s", (int)$cockies) . "</h2>";
+    }else {
+        echo "<h2>You have manually modified the cookie ".date("d/m/Y H:i:s", (int)$cockies) ."</h2>";
+    }
 }else{
-    echo "Welcome";
+    echo "<h2>Welcome</h2>";
 }
 
 //Connexió a la base de dades.
