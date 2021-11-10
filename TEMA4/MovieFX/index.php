@@ -3,15 +3,13 @@ declare(strict_types=1);
 require "src/Movie.php";
 //require "movies.inc.php";
 
-//Guardar el temps en les cookies
+
+//Guardar el la ultima visita en les cookies
 setcookie("last_visit_date", (string)time(), time() + 604800);
 if (isset($_COOKIE["last_visit_date"])) {
-
     $cockies = $_COOKIE["last_visit_date"];
     if (filter_var($cockies, FILTER_VALIDATE_INT)) {
-
-
-    echo "<h2>Welcome, the last conection was " . date("d/m/Y H:i:s", (int)$cockies) . "</h2>";
+        echo "<h2>Welcome, the last conection was " . date("d/m/Y H:i:s", (int)$cockies) . "</h2>";
     }else {
         echo "<h2>You have manually modified the cookie ".date("d/m/Y H:i:s", (int)$cockies) ."</h2>";
     }
