@@ -1,21 +1,44 @@
 <?php
 declare(strict_types=1);
 require "src/Movie.php";
+require "src/User.php";
 //require "movies.inc.php";
 
+const COOKIE_LAST_VISIT = "last_visit_date";
+// we get the current cookie value
+$lastVisit= filter_input(INPUT_COOKIE,COOKIE_LAST_VISIT, FILTER_VALIDATE_INT);
+
+if (empty($lastVisit)){
+    echo "<h2>Welcome</h2>";
+}else{
+    echo "<h2>Welcome, the last conection was " . date("d/m/Y H:i:s",$lastVisit) . "</h2>";
+}
 
 //Guardar el la ultima visita en les cookies
 setcookie("last_visit_date", (string)time(), time() + 604800);
-if (isset($_COOKIE["last_visit_date"])) {
-    $cockies = $_COOKIE["last_visit_date"];
-    if (filter_var($cockies, FILTER_VALIDATE_INT)) {
-        echo "<h2>Welcome, the last conection was " . date("d/m/Y H:i:s", (int)$cockies) . "</h2>";
-    }else {
-        echo "<h2>You have manually modified the cookie ".date("d/m/Y H:i:s", (int)$cockies) ."</h2>";
-    }
-}else{
-    echo "<h2>Welcome</h2>";
-}
+
+
+// Task 504
+
+# index.php
+// Activem el suport per a sessions
+session_start();
+
+// comprovem si es la primera visita
+$visits = $_SESSION["visits"]??[];
+
+// if not empty generate an HTML Unordered List
+if (!empty($visits))
+  echo "<ul><li>" . implode("</li><li>", array_map(function($v) {
+            return date("d/m/Y h:i:s", $v);
+        }, $visits)) . "</li></ul>";
+else
+     echo "<p>Benvigut! (versió sessió)!</p>";
+
+// guardem en un array index
+$_SESSION["visits"][] = time();
+
+
 
 //Connexió a la base de dades.
 $pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8","dbuser","1234");
@@ -42,4 +65,19 @@ foreach ($moviesAr as $movieAr){
     $movie->setRating((float)$movieAr["rating"]);
     $movies[]=$movie;
 }
+
+// treballaré en l'última película
+echo "La pel·lícula {$movie->getTitle()} té una valoració de {$movie->getRating()}";
+
+$user = new User(1, "Vicent");
+
+$value = 5;
+
+echo "<p>L'usuari {$user->getUsername()} la valora en $value punts</p>";
+
+$user->rate($movie, $value);
+
+echo "<p>La pel·lícula {$movie->getTitle()} té ara una valoració de {$movie->getRating()}</p>";
+
+
 require "views/index.view.php";

@@ -39,18 +39,15 @@ $moviesStmt->execute();
 //Obtiene la siguiente fila de un conjunto de resultados
 $data = $moviesStmt->fetch();
 
+if(empty($data)){
+    throw new Exception("La pel·licula seleccionda no existe");
+}
+
 $validTypes = ["image/jpeg", "image/jpg"];
 $errors = [];
 
 // per a la vista necessitem saber si s'ha processat el formulari
 if (isPost()) {
-
-    $idTemp = filter_input(INPUT_POST, "id", FILTER_VALIDATE_INT);
-    if (!empty($idTemp)) {
-        $data["id"] = $idTemp;
-    }else {
-        throw new Exception("Invalid ID");
-    }
 
     try {
         if (validate_string($_POST["title"], 1, 100))

@@ -21,6 +21,8 @@ else
     throw new Exception("Id Invalid");
 
 
+
+
 //Connexió a la base de dades.
 $pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8","dbuser","1234");
 //Prequè generi excepcions a l'hora de reportar errors.
@@ -36,6 +38,8 @@ $moviesStmt->execute();
 
 //Obtiene la siguiente fila de un conjunto de resultados
 $data = $moviesStmt->fetch();
+
+$errors=[];
 
 if (isPost()) {
 

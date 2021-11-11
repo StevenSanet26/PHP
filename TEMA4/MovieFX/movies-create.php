@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+session_start();
+if (empty($_SESSION["user"]))
+    die("<p><a href= \"login.php\">Login</a> or die!</p>");
+
+
 require "helpers.php";
 require "Exceptions/FileUploadException.php";
 require "Exceptions/NoUploadedFileException.php";

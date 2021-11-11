@@ -9,6 +9,7 @@ class Movie{
     private string $releaseDate;
     private float $rating;
     private string $poster;
+    private int $voters;
 
     public function setId(int $id): void{
         $this->id = $id;
@@ -56,5 +57,21 @@ class Movie{
 
     public function getPoster(): string{
         return $this->poster;
+    }
+//ACTIVITAT CREANT TRANSACCIÓ
+    /**
+     * @param int $voters
+     */
+    public function setVoters(int $voters): void
+    {
+        $this->voters = $voters;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVoters(): int
+    {
+        return $this->voters;
     }
 }
