@@ -1,12 +1,10 @@
 <?php
 //Implementar la consulta
-$pdo = new PDO("mysql:host=localhost;dbname=todo-list;charset-utf8" , "root" , "pancet");
+$pdo = new PDO("mysql:host=localhost;dbname=todo-list;charset=utf8" , "root","pancet");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$stmt = $pdo->prepare("SELECT * FROM task t, category c WHERE t.category_id = c.id 
-                                 ORDER BY due_date ASC");
-$stmt->execute();
-$tasks = $stmt-> fetchAll();
+
+
 ?>
 <!DOCTYPE html>
 <html>
