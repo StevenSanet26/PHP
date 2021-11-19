@@ -1,8 +1,25 @@
 <?php
+$pdo = new PDO("mysql:host=localhost;dbname=todo-list;charset=utf8" , "user1","pancet");
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$stmt= $pdo->prepare("SELECT * FROM category");
+$stmt->setFetchMode(PDO::FETCH_ASSOC);
+$stmt->execute();
 
+$category=$stmt->fetchAll();
+foreach ($category as $cat){
+    $categories[]=$cat;
+}
 
 // TODO: 1. Inicialitzar variables
+$data["title"]="";
+$data["description"]="";
+$data["due_date"]="";
+$data["name"]="";
+
+$erros=[];
 // TODO: 2. Comprovar el mètode de sol·licitud
+
+
 
 // TODO: 2.2. Processar el formulari
 // TODO: 2.2. Obtenir les dades del formulari
@@ -25,20 +42,21 @@
 <h1>Welcome to your Todo List</h1>
 
 <!--TODO: 2.1. Mostrar formulari //-->
-<form action="tasks_add.php">
+
+<form action="tasks_add.php" method="POST">
     <label>Titol de la tasca
-        <input type="text" value=""/>
+        <input type="text" name="title" value="<?=$data["title"]?>"/>
         </label>
 
     <label>
         Descripció de la tasca
 
-        <textarea rows="10" cols="45" placeholder="Inserix cos del article"> </textarea>
+        <textarea rows="10" cols="45" name="description" placeholder="Inserix cos del article"><?=$data["description"]?></textarea>
     </label>
 
     <label>
         Data de finalització
-        <input type="date" value=""/>
+        <input type="date" name="due_date" value="<?=$data["due_date"]?>"/>
 
     </label>
 
@@ -46,9 +64,10 @@
         Categoria
         <select name="codcat">
             <option value="disabled selected">(select an option)</option>
-
-            <option value="ID CATEGORIA">NOM DE LA CATEGORIA</option>
-
+            <?php foreach ($categories as $categoria):?>
+            <label for="<?=$categoria["name"]?>"><?=$categoria["name"]?></label>
+            <option id="<?=$categoria["name"]?>" name="name" value="<?=$categoria["id"]?>">
+            <?php endforeach;?>
         </select>
     </label>
 

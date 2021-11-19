@@ -1,9 +1,16 @@
 <?php
 //Implementar la consulta
-$pdo = new PDO("mysql:host=localhost;dbname=todo-list;charset=utf8" , "root","pancet");
+$pdo = new PDO("mysql:host=localhost;dbname=todo-list;charset=utf8" , "user1","pancet");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$stmt= $pdo->prepare("SELECT * FROM task");
+$stmt->setFetchMode(PDO::FETCH_ASSOC);
+$stmt->execute();
 
+$tasksStmt=$stmt->fetchAll();
 
+foreach ($tasksStmt as $task){
+    $tasks[]=$task;
+}
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +24,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 <ul>
     <?php foreach($tasks as $task) : ?>
         <li>
-            <a href="tasks_show.php"><?=$task["title"]?></a> under <strong><?=$task["name"]?></strong>. Due date: <strong><?=$task["due_date"] ?></strong>.
+            <a href="tasks_show.php?id=<?=$task["id"]?>"><?=$task["title"]?></a> under <strong><?=$task["description"]?></strong>. Due date: <strong><?=$task["due_date"] ?></strong>.
         </li>
     <?php endforeach; ?>
 </ul>
