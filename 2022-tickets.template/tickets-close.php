@@ -9,5 +9,4 @@ if (!empty($idTemp)){
     $id=$idTemp;
 }else{
     throw new Exception("Invalid ID");
-
 }
