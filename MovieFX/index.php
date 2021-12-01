@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
 
-
-require 'src/FlashMessage.php';
+use App\Registry;
+use App\FlashMessage;
+require "bootstrap.php";
+//require 'src/FlashMessage.php';
 
 // es bona idea no treballar en literal
 const COOKIE_LAST_VISIT = "last_visit_date";
@@ -70,14 +72,16 @@ if (!empty($_SESSION["message"])) {
     unset ($_SESSION["message"]);
 }
 
-
-
+$pdo = Registry::get("PDO");
+/*
 $pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8", "dbuser", "1234");
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);*/
 $moviesStmt = $pdo->prepare("SELECT * FROM movie");
 $moviesStmt->setFetchMode(PDO::FETCH_ASSOC);
 $moviesStmt->execute();
+
+$logger=Registry::get(Registry::LOGGER);
+$logger->info("S'ha executat una consulta");
 
 // fetchAll tornarà un array les dades de pel·lícules en un altre array
 // caldrà mapejar les dades

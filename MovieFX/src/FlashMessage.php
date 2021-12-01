@@ -1,5 +1,5 @@
 <?php
-
+namespace App;
 # src/Core/Helpers/FlashMessage.php
 
 /**

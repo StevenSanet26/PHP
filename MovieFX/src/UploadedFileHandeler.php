@@ -11,16 +11,18 @@
  * 7. Moure el fitxer
  * 8. Obtenim el mom definitiu
  */
-
+/*
 require_once "Exceptions/FileUploadException.php";
 require "Exceptions/InvalidTypeFileException.php";
-require_once "Exceptions/TooBigFileException.php";
+require_once "Exceptions/TooBigFileException.php";*/
+use App\Exceptions\NoUploadedFileException;
+
 class UploadedFileHandler {
     private array $uploadedFile;
 
     public function __construct(string  $inputName, array $acceptedTypes, int $maxSize) {
 
-        if($_FILES[$inputName]["errors"=UPLOAD_ERR_NO_FILE]){
+        if($_FILES[$inputName]["error"]==UPLOAD_ERR_NO_FILE){
             throw new FileUploadException("No s'ha pujat cap fitxer o ha segut un error");
         }
         

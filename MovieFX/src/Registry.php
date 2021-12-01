@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-//namespace DesignPatterns\Structural\Registry;
+namespace App;
 
 //use InvalidArgumentException;
 
 abstract class Registry
 {
-    public const LOGGER = 'logger';
+    public const LOGGER = 'LOGGER';
     public const PDO="PDO";
 
 

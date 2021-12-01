@@ -1,6 +1,8 @@
 <?php declare(strict_types=1); ?>
 <?php
+use Webmozart\Assert\Assert;
 session_start();
+
 //if (empty($_SESSION["user"]))
 //    die("<p><a href= \"login.php\">Login</a> or die!</p>");
 
@@ -54,10 +56,14 @@ if (empty($token) || ($_POST["token"] !== $token))
 
 //------------------------------------------------------
 try {
+    /*
     if (validate_string($_POST["title"], 1, 100))
         $data["title"] = clean($_POST["title"]);
+    */
+    Assert::lengthBetween($_POST["title"],1,100,"Títol: grandària incorrecta");
+    $data["title"] = clean($_POST["title"]);
 
-} catch (ValidationException $e) {
+} catch (InvalidArgumentException $e) {
     $errors[] = "Titol: ".$e->getMessage();
 }
 try {
@@ -85,7 +91,7 @@ else
 
 /**ACTIVITAT 602*/
 try {
-    $uploadedFileHandler = new UploadedFileHandler("poster",["img/jpeg"],MAX_SIZE);
+    $uploadedFileHandler = new UploadedFileHandler("poster", $validTypes,MAX_SIZE);
     $data["poster"]= $uploadedFileHandler->handle(Movie::POSTER_PATH);
 
 } catch (FileUploadException $e) {

@@ -1,6 +1,8 @@
 <?php declare(strict_types=1); ?>
 <?php
-require_once "src/FlashMessage.php";
+
+use App\FlashMessage;
+//require_once "src/FlashMessage.php";
 require_once "bootstrap.php";
 session_start();
 
@@ -14,8 +16,8 @@ session_start();
 // Use la sintaxi alternativa de les estructures de control per a la part de vistes.
 // Cree funció clean per a netejar valors
 
-require "helpers.php";
-require_once 'src/FlashMessage.php';
+//require "helpers.php";
+//require_once 'src/FlashMessage.php';
 if (isPost())
     die("Aquest pàgina sols admet el mètode GET");
 

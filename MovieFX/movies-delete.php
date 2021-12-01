@@ -12,6 +12,7 @@ require "helpers.php";
 require 'src/Exceptions/FileUploadException.php';
 require_once 'src/Exceptions/NoUploadedFileException.php';
 require_once 'src/Movie.php';
+require "bootstrap.php";
 
 // En el cas de l'edició els valors inicials haurien de ser els de l'objecte a actualitzar, així
 // que caldria inicialitzar l'array $data  tant en l'opció de post com en la get
@@ -26,9 +27,12 @@ if (!empty($idTemp))
 else
     throw new Exception("Id Invalid");
 
+
+$pdo = Registry::get("PDO");
+/*
 $pdo = new PDO("mysql:host=locahost;dbname=movieFX;charset=utf8", "dbuser", "1234");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+*/
 $moviesStmt = $pdo->prepare("SELECT * FROM movie WHERE id=:id");
 $moviesStmt->bindValue("id", $id);
 $moviesStmt->setFetchMode(PDO::FETCH_ASSOC);
