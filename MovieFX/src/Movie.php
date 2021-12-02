@@ -13,9 +13,28 @@ class Movie
     private string $poster;
 
     /**
+     * @param int $id
+     * @param string $title
+     * @param string $overview
+     * @param string $releaseDate
+     * @param float $rating
+     * @param string $poster
+     */
+    public function __construct(?int $id, string $title, string $overview, string $releaseDate, float $rating, string $poster)
+    {
+        $this->id = $id;
+        $this->title = $title;
+        $this->overview = $overview;
+        $this->releaseDate = $releaseDate;
+        $this->rating = $rating;
+        $this->poster = $poster;
+    }
+
+
+    /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -23,7 +42,7 @@ class Movie
     /**
      * @param int $id
      */
-    public function setId(int $id): void
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
@@ -122,6 +141,19 @@ class Movie
     public function setVoters(int $voters): void
     {
         $this->voters = $voters;
+    }
+
+    public static function fromArray(array $data) :Movie
+    {
+        return new Movie(
+            (int)$data["id"],
+            $data["title"],
+            $data["overview"],
+            $data["release_date"],
+            (float)$data["rating"],
+            $data["poster"]
+        );
+
     }
 
 }

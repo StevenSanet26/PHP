@@ -1,9 +1,12 @@
 <?php
 declare(strict_types=1);
 
+
+
 use App\Registry;
 use App\FlashMessage;
-require "bootstrap.php";
+
+
 //require 'src/FlashMessage.php';
 
 // es bona idea no treballar en literal
@@ -88,17 +91,20 @@ $logger->info("S'ha executat una consulta");
 $moviesAr = $moviesStmt->fetchAll();
 
 foreach ($moviesAr as $movieAr) {
+    /*
     $movie = new Movie();
     $movie->setId((int)$movieAr["id"]);
     $movie->setTitle($movieAr["title"]);
     $movie->setPoster($movieAr["poster"]);
     $movie->setReleaseDate($movieAr["release_date"]);
     $movie->setOverview($movieAr["overview"]);
-    $movie->setRating((float)$movieAr["rating"]);
-    $movies[] = $movie;
+    $movie->setRating((float)$movieAr["rating"]);*/
+    $movies[] = Movie::fromArray($movieAr);
+
 }
 
 // treballaré en l'última película
+/*
 echo "La pel·lícula {$movie->getTitle()} té una valoració de {$movie->getRating()}";
 
 $user = new User(1, "Vicent");
@@ -110,7 +116,7 @@ echo "<p>L'usuari {$user->getUsername()} la valora en $value punts</p>";
 //$user->rate($movie, $value);
 
 echo "<p>La pel·lícula {$movie->getTitle()} té ara una valoració de {$movie->getRating()}</p>";
-
+*/
 $message = FlashMessage::get("message");
 
 

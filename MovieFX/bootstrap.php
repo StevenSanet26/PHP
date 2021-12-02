@@ -6,7 +6,8 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 
 
-require_once 'src/Registry.php';
+
+//require_once 'src/Registry.php';
 /*
 require "Config.php";
 
@@ -22,10 +23,11 @@ $pwd = $DSN["DSN"]["password"];
 
 $pdo = new PDO("mysql:host=".$mysql.";dbname=".$db.";charset=".$charset,$user, $pwd);
 */
+
 $pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8;","dbuser","1234");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-Registry::set("PDO", $pdo);
+Registry::set("PDO",$pdo);
 
 //create a log channel
 $log = new Logger("movies");

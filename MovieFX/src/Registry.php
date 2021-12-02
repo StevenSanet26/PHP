@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App;
+require "bootstrap.php";
 
 //use InvalidArgumentException;
 
@@ -41,7 +42,9 @@ abstract class Registry
 
         return self::$services[$key];
     }
-    public static function getPDO(){
-
+    public static function getPDO(ConfigInterface $config){
+        $pdo = new PDO($config->getDataSourceName());
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        static::set("PDO",$pdo);
     }
 }
