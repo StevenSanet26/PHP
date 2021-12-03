@@ -1,8 +1,7 @@
 <?php
 declare(strict_types=1);
-
-
-
+require "bootstrap.php";
+use App\Movie;
 use App\Registry;
 use App\FlashMessage;
 
@@ -62,19 +61,19 @@ require "src/Movie.php";
 require "src/User.php";
 // ara obtindrem les pel·lícules de la BD
 // require "movies.inc.php";
-
+/*
 echo "<h2>Activitat 501</h2>";
 echo "<p>$message</p>";
 
 echo "<h2>Activitat 504</h2>";
 echo "<p>$messageSession</p>";
+*/
+$message = FlashMessage::get("message");
+if (!empty($message)) {
+    echo "<h2>Missatge</h2>";
+    echo "<p>$message</p>";
 
-if (!empty($_SESSION["message"])) {
-    echo "<h2>Activitat 507</h2>";
-    echo "<p>{$_SESSION["message"]}</p>";
-    unset ($_SESSION["message"]);
 }
-
 $pdo = Registry::get("PDO");
 /*
 $pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8", "dbuser", "1234");
@@ -117,7 +116,7 @@ echo "<p>L'usuari {$user->getUsername()} la valora en $value punts</p>";
 
 echo "<p>La pel·lícula {$movie->getTitle()} té ara una valoració de {$movie->getRating()}</p>";
 */
-$message = FlashMessage::get("message");
+//$message = FlashMessage::get("message");
 
 
 

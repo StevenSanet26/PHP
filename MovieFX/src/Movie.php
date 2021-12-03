@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+namespace App;
+use Webmozart\Assert\Assert;
+
 class Movie
 {
     const POSTER_PATH = "posters";
@@ -156,4 +159,13 @@ class Movie
 
     }
 
+    public function toArray(): array{
+        return ["id"=>$this->getId(),
+            "title"=>$this->getTitle(),
+            "overview"=>$this->getOverview(),
+            "release_date"=>$this->getReleaseDate(),
+            "rating" => $this->getRating(),
+            "poster" => $this->getPoster()
+        ];
+    }
 }

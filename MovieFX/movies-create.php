@@ -23,7 +23,6 @@ if (isPost())
 
 const MAX_SIZE = 1024*1000;
 
-$data = FlashMessage::get("data", []);
 /**ACTIVITAT 601**/
 //if (empty($_SESSION["data"])) {
     $data["title"] = "";
@@ -31,18 +30,21 @@ $data = FlashMessage::get("data", []);
     $data["overview"] = "";
     $data["poster"] = "";
     $data["rating"] = 0;
+
+$data = FlashMessage::get("data", $data);
 //}
 //else {
     //$data = $_SESSION["data"];
 //}
 
-//var_dump($data);
+//
 //unset($_SESSION["data"]);
 $errors=FlashMessage::get("errors",[]);
 //SI $_SESSION["errors"] es null $errors es queda en una array buida
 //$errors = $_SESSION["errors"]??[];
 //unset($_SESSION["errors"]);
-
+var_dump($data);
+var_dump($errors);
 
 /**
     Token per a evitar atacs CSRF:

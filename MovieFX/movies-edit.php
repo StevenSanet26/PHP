@@ -7,14 +7,23 @@
 // Acumularé els errors en un array per a mostrar-los al final.
 // Use la sintaxi alternativa de les estructures de control per a la part de vistes.
 // Cree funció clean per a netejar valors
-
+/*
 require "helpers.php";
 require 'src/Exceptions/FileUploadException.php';
 require_once 'src/Exceptions/NoUploadedFileException.php';
 require_once 'src/Movie.php';
 require_once "bootstrap.php";
-require_once "src/UploadedFileHandeler.php";
-
+require_once "src/UploadedFileHandeler.php";*/
+use App\Exceptions\FileUploadException;
+use App\Exceptions\NoUploadedFileException;
+use App\Exceptions\RequiredValidationException;
+use App\Exceptions\TooLongValidationException;
+use App\Exceptions\TooShortValidationException;
+use App\Exceptions\ValidationException;
+use App\Movie;
+use App\Registry;
+use App\UploadedFileHandler;
+require 'bootstrap.php';
 const MAX_SIZE = 1024*1000;
 
 // En el cas de l'edició els valors inicials haurien de ser els de l'objecte a actualitzar, així
@@ -29,9 +38,10 @@ if (!empty($idTemp))
     $id = $idTemp;
 else
     throw new Exception("Id Invalid");
-
+/*
 $pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8", "dbuser", "1234");
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);*/
+$pdo = Registry::get("PDO");
 
 $moviesStmt = $pdo->prepare("SELECT * FROM movie WHERE id=:id");
 $moviesStmt->bindValue("id", $id);
@@ -99,7 +109,8 @@ if (isPost()) {
 }
 
 if (isPost() && empty($errors)) {
-    $pdo = Registry::get(Registry::PDO);
+    $pdo = Registry::get("PDO");
+
 
     $moviesStmt = $pdo->prepare("UPDATE movie 
                             set title = :title, 
