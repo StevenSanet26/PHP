@@ -1,5 +1,4 @@
 <?php
-
 require_once "src/Exceptions/ValidationException.php";
 require_once "src/Exceptions/RequiredValidationException.php";
 require_once "src/Exceptions/TooShortValidationException.php";
