@@ -5,6 +5,8 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 
+$configIni = new \App\Config(__DIR__."/config.ini");
+
 
 
 //require_once 'src/Registry.php';
