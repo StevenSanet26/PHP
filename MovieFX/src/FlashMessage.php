@@ -20,6 +20,7 @@ class FlashMessage{
      */
 
     public static function get(string $key, $defaultValue = ''){
+        //TODO:comprovar què passa si fem primer un get
         $value=$_SESSION[self::SESSION_KEY][$key] ?? $defaultValue;
         self::unset($key);
         return $value;

@@ -7,7 +7,7 @@ use Webmozart\Assert\Assert;
 class Movie
 {
     const POSTER_PATH = "posters";
-    public int $id;
+    public ?int $id=null;
     private string $title;
     private string $overview;
     private string $releaseDate;
@@ -25,12 +25,12 @@ class Movie
      */
     public function __construct(?int $id, string $title, string $overview, string $releaseDate, float $rating, string $poster)
     {
-        $this->id = $id;
-        $this->title = $title;
-        $this->overview = $overview;
-        $this->releaseDate = $releaseDate;
-        $this->rating = $rating;
-        $this->poster = $poster;
+        $this->setId($id);
+        $this->setTitle($title);
+        $this->setOverview($overview);
+        $this->setReleaseDate($releaseDate);
+        $this->setRating($rating);
+        $this->setPoster($poster);
     }
 
 
@@ -55,6 +55,7 @@ class Movie
      */
     public function getTitle(): string
     {
+
         return $this->title;
     }
 
@@ -63,6 +64,7 @@ class Movie
      */
     public function setTitle(string $title): void
     {
+        Assert::lengthBetween($title, 1, 100);
         $this->title = $title;
     }
 
@@ -79,6 +81,7 @@ class Movie
      */
     public function setOverview(string $overview): void
     {
+
         $this->overview = $overview;
     }
 
@@ -95,6 +98,8 @@ class Movie
      */
     public function setReleaseDate(string $releaseDate): void
     {
+        if (!validate_date($releaseDate))
+            throw new \WebMozart\Assert\InvalidArgumentException("date invalid");
         $this->releaseDate = $releaseDate;
     }
 
@@ -148,8 +153,13 @@ class Movie
 
     public static function fromArray(array $data) :Movie
     {
+        if (empty($data["id"]))
+            $id = null;
+        else
+            $id = (int)$data["id"];
+
         return new Movie(
-            (int)$data["id"],
+            $id,
             $data["title"],
             $data["overview"],
             $data["release_date"],

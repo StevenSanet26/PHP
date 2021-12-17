@@ -1,9 +1,6 @@
-<?php declare(strict_types=1); ?>
-<?php
-
+<?php declare(strict_types=1);
 use App\FlashMessage;
-//require_once "src/FlashMessage.php";
-require_once "bootstrap.php";
+require_once 'bootstrap.php';
 session_start();
 
 
@@ -16,41 +13,30 @@ session_start();
 // Use la sintaxi alternativa de les estructures de control per a la part de vistes.
 // Cree funció clean per a netejar valors
 
-//require "helpers.php";
-//require_once 'src/FlashMessage.php';
 if (isPost())
     die("Aquest pàgina sols admet el mètode GET");
 
+
 const MAX_SIZE = 1024*1000;
 
-/**ACTIVITAT 601**/
-//if (empty($_SESSION["data"])) {
-    $data["title"] = "";
-    $data["release_date"] = "";
-    $data["overview"] = "";
-    $data["poster"] = "";
-    $data["rating"] = 0;
+$data["title"] = "";
+$data["release_date"] = "";
+$data["overview"] = "";
+$data["poster"] = "";
+$data["rating"] = 0;
 
-$data = FlashMessage::get("data", $data);
-//}
-//else {
-    //$data = $_SESSION["data"];
-//}
+$data = App\FlashMessage::get("data", $data);
+$errors = App\FlashMessage::get("errors",[]);
 
-//
-//unset($_SESSION["data"]);
-$errors=FlashMessage::get("errors",[]);
-//SI $_SESSION["errors"] es null $errors es queda en una array buida
-//$errors = $_SESSION["errors"]??[];
-//unset($_SESSION["errors"]);
 var_dump($data);
 var_dump($errors);
 
-/**
+/*
     Token per a evitar atacs CSRF:
     1) Creem el token en mostrar el formulari
     2) En llegir-lo l'esborrem, ja no serà valid perquè ja s'ha processat satisfactòriament o no el formulari
     3) Si el token és invàlid cancelem l'execució
+
 */
 
 $formToken =  bin2hex(random_bytes(16));

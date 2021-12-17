@@ -3,8 +3,8 @@
 namespace App;
 
 use DomainException;
-
 use LengthException;
+use function PHPUnit\Framework\throwException;
 
 class Dni
 {

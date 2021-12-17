@@ -1,11 +1,24 @@
 <?php
 require "vendor/autoload.php";
+
+use App\Config;
 use App\Registry;
+
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 
-$configIni = new \App\Config(__DIR__."/config.ini");
+//$configIni = new Config(__DIR__."/config.ini");
+$configXML = new Config(__DIR__."/config.xml");
+
+Registry::setPDO($configXML);
+//Registry::setPDO($configJson);
+
+// create a log channel
+$log = new Logger('movies');
+$log->pushHandler(new StreamHandler('app.log', Logger::DEBUG));
+$log->pushHandler(new FirePHPHandler());
+Registry::set(Registry::LOGGER, $log);
 
 
 
@@ -16,15 +29,7 @@ require "Config.php";
 $Config = new Config();
 $DSN = $Config->leerArchivo();
 
-/*
-$mysql = $DSN["DSN"]["mysql:host"];
-$db = $DSN["DSN"]["dbname"];
-$charset = $DSN["DSN"]["charset"];
-$user = $DSN["DSN"]["user"];
-$pwd = $DSN["DSN"]["password"];
 
-$pdo = new PDO("mysql:host=".$mysql.";dbname=".$db.";charset=".$charset,$user, $pwd);
-*/
 
 $pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8;","dbuser","1234");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

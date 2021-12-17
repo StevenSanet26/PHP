@@ -15,7 +15,12 @@
 require_once "Exceptions/FileUploadException.php";
 require "Exceptions/InvalidTypeFileException.php";
 require_once "Exceptions/TooBigFileException.php";*/
+namespace App;
+
+use App\Exceptions\FileUploadException;
+use App\Exceptions\InvalidTypeFileException;
 use App\Exceptions\NoUploadedFileException;
+use App\Exceptions\TooBigFileException;
 
 class UploadedFileHandler {
     private array $uploadedFile;
@@ -30,6 +35,8 @@ class UploadedFileHandler {
             throw  new Exception("No s'ha pujat cap fitxer o ha segut un error");
         }
 
+        $this->uploadedFile=$_FILES[$inputName];
+
         if (!in_array($_FILES[$inputName]["type"], $acceptedTypes)) {
             throw new InvalidTypeFileException("EL fitxer no és del tipus requerit");
         }
@@ -38,14 +45,16 @@ class UploadedFileHandler {
             throw new TooBigFileException("El fitxer supera el límit de la grandària(".$maxSize);
         }
 
-        $this->uploadedFile=$_FILES[$inputName];
+
     }
 
     public function handle(string $directory): string{
 
             $tempFilename = $this->uploadedFile["tmp_name"];
 
-            $newFilename = md5((string)rand());
+        // generem el nom definitiu
+        // type => "images/jpeg"
+        // explode => ["images", "jpeg"]
 
             //GENEREM EL NOM DEFINITIU
             $extension = explode("/",$this->uploadedFile["type"])[1];

@@ -1,19 +1,5 @@
-<?php declare(strict_types=1); ?>
+<?php declare(strict_types=1);
 
-<?php
-
-// Inicialitze les variables perquè existisquen en tots els possibles camins
-// Sols emmagatzameré en elles valors vàlids.
-// Acumularé els errors en un array per a mostrar-los al final.
-// Use la sintaxi alternativa de les estructures de control per a la part de vistes.
-// Cree funció clean per a netejar valors
-/*
-require "helpers.php";
-require 'src/Exceptions/FileUploadException.php';
-require_once 'src/Exceptions/NoUploadedFileException.php';
-require_once 'src/Movie.php';
-require_once "bootstrap.php";
-require_once "src/UploadedFileHandeler.php";*/
 use App\Exceptions\FileUploadException;
 use App\Exceptions\NoUploadedFileException;
 use App\Exceptions\RequiredValidationException;
@@ -22,8 +8,20 @@ use App\Exceptions\TooShortValidationException;
 use App\Exceptions\ValidationException;
 use App\Movie;
 use App\Registry;
-use App\UploadedFileHandler;
+use App\UploadedFileHandler; ?>
+
+<?php
+
+// Inicialitze les variables perquè existisquen en tots els possibles camins
+// Sols emmagatzameré en elles valors vàlids.
+// Acumularé els errors en un array per a mostrar-los al final.
+// Use la sintaxi alternativa de les estructures de control per a la part de vistes.
+// Cree funció clean per a netejar valors
+
+
 require 'bootstrap.php';
+
+
 const MAX_SIZE = 1024*1000;
 
 // En el cas de l'edició els valors inicials haurien de ser els de l'objecte a actualitzar, així
@@ -38,9 +36,7 @@ if (!empty($idTemp))
     $id = $idTemp;
 else
     throw new Exception("Id Invalid");
-/*
-$pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8", "dbuser", "1234");
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);*/
+
 $pdo = Registry::get("PDO");
 
 $moviesStmt = $pdo->prepare("SELECT * FROM movie WHERE id=:id");
@@ -95,17 +91,19 @@ if (isPost()) {
         $errors[] = "El rating ha de ser un enter entre 1 i 5";*/
 
     try {
-        $uploadedFileHandler = new UploadedFileHandler("poster", ["img/jpeg"], MAX_SIZE);
+        $uploadedFileHandler = new UploadedFileHandler("poster", $validTypes, MAX_SIZE);
         $data["poster"] = $uploadedFileHandler->handle(Movie::POSTER_PATH);
 
-
-    }catch (NoUploadedFileException $e) {
-        //La capture i no faig res perque es una opcio vàlida
+    }
+    catch (NoUploadedFileException $e) {
+        // la capture i no faig res perquè és una opció vàlida.
     }
 
-    catch(FileUploadException $e){
+    catch (FileUploadException $e) {
         $errors[] = $e->getMessage();
     }
+
+
 }
 
 if (isPost() && empty($errors)) {

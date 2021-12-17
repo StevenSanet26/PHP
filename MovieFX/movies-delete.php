@@ -1,18 +1,15 @@
-<?php declare(strict_types=1); ?>
+<?php declare(strict_types=1);
+
+use App\Registry; ?>
 
 <?php
-use App\Registry;
 
 // Inicialitze les variables perquè existisquen en tots els possibles camins
 // Sols emmagatzameré en elles valors vàlids.
 // Acumularé els errors en un array per a mostrar-los al final.
 // Use la sintaxi alternativa de les estructures de control per a la part de vistes.
 // Cree funció clean per a netejar valors
-/*
-require "helpers.php";
-require 'src/Exceptions/FileUploadException.php';
-require_once 'src/Exceptions/NoUploadedFileException.php';
-require_once 'src/Movie.php';*/
+
 require "bootstrap.php";
 
 // En el cas de l'edició els valors inicials haurien de ser els de l'objecte a actualitzar, així
@@ -28,12 +25,8 @@ if (!empty($idTemp))
 else
     throw new Exception("Id Invalid");
 
-
 $pdo = Registry::get("PDO");
-/*
-$pdo = new PDO("mysql:host=locahost;dbname=movieFX;charset=utf8", "dbuser", "1234");
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-*/
+
 $moviesStmt = $pdo->prepare("SELECT * FROM movie WHERE id=:id");
 $moviesStmt->bindValue("id", $id);
 $moviesStmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -61,7 +54,7 @@ if (isPost()) {
 }
 
 if (isPost() && empty($errors)) {
-    $pdo = new PDO("mysql:host=localhost;dbname=movieFX;charset=utf8", "dbuser", "1234");
+    $pdo = new PDO("mysql:host=mysql-server;dbname=movieFX;charset=utf8", "dbuser", "1234");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $moviesStmt = $pdo->prepare("DELETE FROM movie
